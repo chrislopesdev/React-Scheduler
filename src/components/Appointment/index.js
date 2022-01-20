@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '/src/components/Appointment/Header';
-import Show from '/src/components/Appointment/Show';
-import Empty from '/src/components/Appointment/Empty';
+import Header from './Header';
+import Show from './Show';
+import Empty from './Empty';
 
 import './styles.scss';
 
