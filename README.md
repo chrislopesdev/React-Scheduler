@@ -21,3 +21,7 @@ npm test
 ```sh
 npm run storybook
 ```
+
+"GET_DAYS": http://localhost:8001/api/days,
+"GET_APPOINTMENTS": http://localhost:8001/api/appointments,
+"GET_INTERVIEWERS": http://localhost:8001/api/interviewers,

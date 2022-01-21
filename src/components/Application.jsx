@@ -3,6 +3,7 @@ import axios from 'axios';
 import 'components/Application.scss';
 import DayList from './DayList';
 import Appointment from './Appointment/index.js';
+import getAppointmentsForDay from 'helpers/selectors';
 
 const appointments = [
   {
@@ -50,6 +51,8 @@ const parsedAppointments = appointments.map((app) => (
 export default function Application(props) {
   const [day, setDay] = useState('Monday');
   const [days, setDays] = useState([]);
+
+  // getAppointmentsForDay({ days, appointments }, day);
 
   useEffect(() => {
     axios.get(`/api/days`).then((response) => {
