@@ -28,10 +28,6 @@ export default function Application(props) {
     );
   });
 
-  // const parsedAppointments = dailyAppointments.map((app) => (
-  //   <Appointment key={app.id} {...app} />
-  // ));
-
   const setDay = (day) => setState({ ...state, day });
 
   useEffect(() => {
