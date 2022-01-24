@@ -38,11 +38,11 @@ export default function Appointment(props) {
       {mode === SHOW && (
         <Show
           student={props.interview.student}
-          interviewer={props.interview.interviewer}
+          interviewer={props.interview.interviewer || {interviewer:{name:''}}}
         />
       )}
       {mode === CREATE && <Form interviewers={props.interviewers} onCancel={() => back()} onSave={save} />}
-      {mode === SAVING && <Status />}
+      {mode === SAVING && <Status message={'Saving'}/>}
     </article>
   );
 };
