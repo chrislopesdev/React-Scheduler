@@ -30,10 +30,25 @@ export default function Application(props) {
       [id]: appointment,
     };
 
-    setState({
-      ...state,
-      appointments,
-    });
+    return axios
+      .put(`/api/appointments/${id}`, { interview })
+      .then((response) => {
+        // console.log(response);
+        setState({
+          ...state,
+          appointments,
+        });
+      })
+      .catch((err) => {
+        console.log('Error: ', err.message);
+      });
+
+    // useEffect(() => {
+    //   axios
+    //     .put('/api/appointments/:id', interview)
+    //     .then((response) => console.log(response))
+    //     .catch();
+    // });
   }
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
