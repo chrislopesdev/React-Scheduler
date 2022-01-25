@@ -51,7 +51,7 @@ export default function Appointment(props) {
   }
 
   function onConfirm() {
-    transition(CONFIRM, true);
+    transition(CONFIRM);
   }
 
   useEffect(() => {
