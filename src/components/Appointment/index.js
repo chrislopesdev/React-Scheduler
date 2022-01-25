@@ -4,6 +4,7 @@ import Show from './Show';
 import Empty from './Empty';
 import Status from './Status';
 import Confirm from './Confirm';
+import Error from './Error';
 import useVisualMode from 'hooks/useVisualMode';
 import Form from './Form';
 
@@ -16,6 +17,8 @@ const SAVING = "SAVING";
 const CONFIRM = "CONFIRM";
 const DELETING = "DELETING";
 const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
 
@@ -30,8 +33,10 @@ export default function Appointment(props) {
     };
     transition(SAVING);
     props.bookInterview(props.id, interview)
-    .then(result => {
-      transition(SHOW);
+    .then(() => transition(SHOW))
+    .catch(error => {
+      transition(ERROR_SAVE, true);
+      // console.log("Error: ", error.message)
     })
   }
 
@@ -39,6 +44,10 @@ export default function Appointment(props) {
     transition(DELETING, true);
     props.cancelInterview(props.id)
     .then(() => transition(EMPTY))
+    .catch(error => {
+      transition(ERROR_DELETE, true);
+      // console.log('Error: ', error.message)
+    })
   }
 
   function onConfirm() {
@@ -80,6 +89,18 @@ export default function Appointment(props) {
           onCancel = {back}
           onSave = {save}
         />)}
+        {mode === ERROR_SAVE && (
+        <Error 
+          message="Unable to save"
+          onClose={back}
+        />
+      )}
+      {mode === ERROR_DELETE && (
+        <Error 
+          message="Unable to delete"
+          onClose={back}
+        />
+      )}
     </article>
   );
 };

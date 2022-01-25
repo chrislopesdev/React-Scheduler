@@ -37,9 +37,6 @@ export default function Application(props) {
           ...state,
           appointments,
         });
-      })
-      .catch((err) => {
-        console.log('Error: ', err.message);
       });
   }
 
@@ -54,18 +51,13 @@ export default function Application(props) {
       [id]: appointment,
     };
 
-    return axios
-      .delete(`/api/appointments/${id}`)
-      .then((response) => {
-        console.log('test');
-        setState({
-          ...state,
-          appointments,
-        });
-      })
-      .catch((err) => {
-        console.log('Error: ', err.message);
+    return axios.delete(`/api/appointments/${id}`).then((response) => {
+      console.log('test');
+      setState({
+        ...state,
+        appointments,
       });
+    });
   }
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
