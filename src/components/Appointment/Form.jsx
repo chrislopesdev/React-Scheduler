@@ -31,9 +31,9 @@ export default function Form(props) {
             name='name'
             type='text'
             placeholder='Enter Student Name'
-            onChange={(e) => setStudent(e.target.value)}
             onKeyDown={handleEnterKey}
-            value={props.name}
+            value={student}
+            onChange={(e) => setStudent(e.target.value)}
           />
         </form>
         <InterviewerList
