@@ -8,21 +8,17 @@ export default function Form(props) {
 
   const reset = () => {
     setStudent('');
-    setInterviewer('');
+    setInterviewer(null);
   };
 
   const cancel = () => {
     reset();
-    {
-      props.onCancel();
-    }
+    props.onCancel();
   };
 
   const handleEnterKey = (e) => {
     if (e.key === 'Enter') {
-      {
-        props.onSave();
-      }
+      props.onSave();
     }
   };
 

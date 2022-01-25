@@ -18,7 +18,7 @@ export default function Application(props) {
   });
 
   function bookInterview(id, interview) {
-    console.log(id, interview);
+    // console.log(id, interview);
 
     const appointment = {
       ...state.appointments[id],
@@ -33,7 +33,6 @@ export default function Application(props) {
     return axios
       .put(`/api/appointments/${id}`, { interview })
       .then((response) => {
-        // console.log(response);
         setState({
           ...state,
           appointments,
@@ -42,13 +41,31 @@ export default function Application(props) {
       .catch((err) => {
         console.log('Error: ', err.message);
       });
+  }
 
-    // useEffect(() => {
-    //   axios
-    //     .put('/api/appointments/:id', interview)
-    //     .then((response) => console.log(response))
-    //     .catch();
-    // });
+  function cancelInterview(id) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null,
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    return axios
+      .delete(`/api/appointments/${id}`)
+      .then((response) => {
+        console.log('test');
+        setState({
+          ...state,
+          appointments,
+        });
+      })
+      .catch((err) => {
+        console.log('Error: ', err.message);
+      });
   }
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
@@ -65,6 +82,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
