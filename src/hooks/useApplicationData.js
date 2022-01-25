@@ -63,14 +63,14 @@ export default function useApplicationData(initial) {
       const statesDayArray = days.map((day) => {
         return { ...day, spots: spotsUpdate(individualDay, day, variable) };
       });
-      console.log('statesArray', statesDayArray);
+      // console.log('statesArray', statesDayArray);
       return statesDayArray;
     }
       if (variable === 'ADD_SPOTS') {
       const statesDayArray = days.map((day) => {
         return { ...day, spots: spotsUpdate(individualDay, day, variable) };
       });
-      console.log('statesArray', statesDayArray);
+      // console.log('statesArray', statesDayArray);
       return statesDayArray;
     }
   };
