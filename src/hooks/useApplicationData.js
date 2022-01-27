@@ -25,7 +25,7 @@ export default function useApplicationData(initial) {
     return axios
       .put(`/api/appointments/${id}`, { interview })
       .then((response) => {
-        const removeSpot = updateSpots(state.day, state.days, 'REMOVE_SPOTS');
+        const removeSpot = updateSpots(state, appointments, id);
         setState({
           ...state,
           days: removeSpot,
@@ -46,7 +46,7 @@ export default function useApplicationData(initial) {
     };
 
     return axios.delete(`/api/appointments/${id}`).then((response) => {
-      const addSpot = updateSpots(state.day, state.days, 'ADD_SPOTS');
+      const addSpot = updateSpots(state, appointments, id);
       setState({
         ...state,
         days: addSpot,
@@ -55,34 +55,30 @@ export default function useApplicationData(initial) {
     });
   }
 
-  const updateSpots = (individualDay, days, variable) => {
+  const getSpotsForDay = (day, appointments) => {
+    let spots = 0;
 
-    if (variable === 'REMOVE_SPOTS') {
-      const statesDayArray = days.map((day) => {
-        return { ...day, spots: spotsUpdate(individualDay, day, variable) };
-      });
-
-      return statesDayArray;
+    for (const id of day.appointments) {
+      const appointment = appointments[id];
+      if (!appointment.interview) {
+        spots++;
+      }
     }
-      if (variable === 'ADD_SPOTS') {
-      const statesDayArray = days.map((day) => {
-        return { ...day, spots: spotsUpdate(individualDay, day, variable) };
-      });
-
-      return statesDayArray;
-    }
+    return spots;
   };
+  
+  const updateSpots = function(state, appointments, id) {
 
-  const spotsUpdate = (individualDay, day, variable) => {
-    let spot = day.spots;
-    if (individualDay === day.name && variable === 'REMOVE_SPOTS') {
-      return spot - 1;
-    } else if (individualDay === day.name && variable === 'ADD_SPOTS') {
-      return spot + 1;
-    } else {
-      return spot;
-    }
-  };
+    const dayObj = state.days.find(day => day.name === state.day);
+    const spots = getSpotsForDay(dayObj, appointments);
+
+    const day = {...dayObj, spots}; 
+
+    const newDays = state.days.map(d => d.name === state.day ? day : d);
+
+    console.log(newDays)
+    return newDays;
+  }
 
   useEffect(() => {
     Promise.all([
