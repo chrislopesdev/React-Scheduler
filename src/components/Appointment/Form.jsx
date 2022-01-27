@@ -6,7 +6,7 @@ export default function Form(props) {
   const [student, setStudent] = useState(props.student || '');
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState('');
-  // const [errorInterviewer, setErrorInterviewer] = useState('');
+  const [errorInterviewer, setErrorInterviewer] = useState('');
 
   const reset = () => {
     setStudent('');
@@ -30,10 +30,10 @@ export default function Form(props) {
       return;
     }
 
-    // if (!interviewer) {
-    //   setErrorInterviewer('You must select an interviewer');
-    //   return;
-    // }
+    if (!interviewer) {
+      setErrorInterviewer('You must select an interviewer');
+      return;
+    }
 
     setError('');
     props.onSave(student, interviewer);
@@ -59,9 +59,9 @@ export default function Form(props) {
             onChange={setInterviewer}
             value={interviewer}
           />
-          {/* <section className='appointment__validation'>
+          <section className='appointment__validation'>
             {errorInterviewer}
-          </section> */}
+          </section>
         </form>
       </section>
       <section className='appointment__card-right'>
