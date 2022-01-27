@@ -56,21 +56,19 @@ export default function useApplicationData(initial) {
   }
 
   const updateSpots = (individualDay, days, variable) => {
-    // console.log('day: ', individualDay);
-    // console.log('days: ', days);
-    // console.log('variable: ', variable);
+
     if (variable === 'REMOVE_SPOTS') {
       const statesDayArray = days.map((day) => {
         return { ...day, spots: spotsUpdate(individualDay, day, variable) };
       });
-      // console.log('statesArray', statesDayArray);
+
       return statesDayArray;
     }
       if (variable === 'ADD_SPOTS') {
       const statesDayArray = days.map((day) => {
         return { ...day, spots: spotsUpdate(individualDay, day, variable) };
       });
-      // console.log('statesArray', statesDayArray);
+
       return statesDayArray;
     }
   };
